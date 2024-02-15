@@ -5,19 +5,20 @@ using UnityEngine;
 public class RoomGenerator : MonoBehaviour
 {
     // Start is called before the first frame update
-    public GameObject wallPrefab;
-    public GameObject RoomPrefab;
-    public int roomWidth = 12;
-    public int roomDepth = 12;
-    public int gapThreshold = 4;
+    public GameObject RoomTemplate;
+    public int mazeWidth;
+    public int mazeDepth;
  
     void Start()
     {
-        for (int x = 0; x < roomWidth; x++)
+        mazeWidth = GameObject.Find("MazeGenerator").GetComponent<MazeGenerator>()._mazeWidth;
+        mazeDepth = GameObject.Find("MazeGenerator").GetComponent<MazeGenerator>()._mazeHeight;
+
+        for (int x = 0; x < mazeWidth; x++)
         {
-            for (int y = 0; y < roomDepth; y++)
+            for (int y = 0; y < mazeDepth; y++)
             {
-                Instantiate(RoomPrefab, new Vector3(x * 5f, 0f, y * 5f), Quaternion.identity, GetComponent<Transform>());
+                Instantiate(RoomTemplate, new Vector3(x * 5f, 0f, y * 5f), Quaternion.identity, GetComponent<Transform>());
                 //Physics.IgnoreCollision(RoomPrefab.transform.GetChild(0).GetComponent<Collider>(), wallPrefab.transform.GetChild(0).GetComponent<Collider>());
             }
         }
